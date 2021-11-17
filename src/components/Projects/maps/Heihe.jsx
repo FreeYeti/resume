@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 import HomeIcon from "@mui/icons-material/Home";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 import { YetiMapLayer, MapboxLayer } from "./layers";
 import Map from "ol/Map";
@@ -18,28 +19,34 @@ import { Animations } from "./heihe/animation";
 import { Flight } from "./heihe/flight";
 import { layerHeihe } from "./heihe/layers";
 
+import { getInstance } from "./instance";
+
 import styles from "./styles.less";
 
-const startAnimation = async (map, animation, flight) => {
-  await animation.flyToHeihe();
-  map.addLayer(layerHeihe);
-  await animation.blink(layerHeihe);
-
-  await animation.fadeOut(layerHeihe, 0.1, 1);
-  await flight.play();
-  await animation.fadeIn(layerHeihe, 0.1, 1);
-  return true;
-};
-
-let map = null;
-let animation = null;
-let flight = null;
-
 export default function Heihe() {
+  const [playing, setPlaying] = React.useState(false);
+
+  const startAnimation = async (map) => {
+    setPlaying(true);
+    const animation = new Animations(map);
+    const flight = new Flight(map);
+
+    await animation.flyToHeihe();
+    map.addLayer(layerHeihe);
+    await animation.blink(layerHeihe);
+
+    await animation.fadeOut(layerHeihe, 0.1, 1);
+    await flight.play();
+    await animation.fadeIn(layerHeihe, 0.1, 1);
+    map.removeLayer(layerHeihe);
+    setPlaying(false);
+    return true;
+  };
+
   React.useEffect(async () => {
     const baseLayer = MapboxLayer();
 
-    map = new Map({
+    const map = new Map({
       layers: [baseLayer],
       target: "heihemap",
       controls: [],
@@ -49,31 +56,56 @@ export default function Heihe() {
       }),
     });
 
-    animation = new Animations(map);
-    flight = new Flight(map);
+    getInstance(map);
 
-    await startAnimation(map, animation, flight);
+    await startAnimation(map);
   }, []);
 
   const handleBackToHeihe = () => {
+    const animation = new Animations(getInstance());
     animation.backToHeihe();
-  }
+    animation = null;
+  };
+
+  const handlePlay = async () => {
+    await startAnimation(getInstance());
+  };
+
+  const handleZoomIn = async () => {
+    const animation = new Animations(getInstance());
+    animation.zoomIn();
+    animation = null;
+  };
+
+  const handleZoomOut = async () => {
+    const animation = new Animations(getInstance());
+    animation.zoomOut();
+    animation = null;
+  };
 
   return (
     <div style={{ width: "100%" }}>
       <Stack spacing={2}>
         <div>
           <Stack direction="row" spacing={2}>
-            <LoadingButton loading variant="outlined">
-              Play Animation
+            <LoadingButton
+              loading={playing}
+              variant="outlined"
+              onClick={handlePlay}
+            >
+              <PlayArrowIcon /> Play Animation
             </LoadingButton>
-            <IconButton aria-label="Zoom In">
+            <IconButton aria-label="Zoom In" onClick={handleZoomIn}>
               <ZoomInIcon />
             </IconButton>
-            <IconButton aria-label="Zoom Out">
+            <IconButton aria-label="Zoom Out" onClick={handleZoomOut}>
               <ZoomOutIcon />
             </IconButton>
-            <Button variant="outlined" startIcon={<HomeIcon />} onClick={handleBackToHeihe}>
+            <Button
+              variant="outlined"
+              startIcon={<HomeIcon />}
+              onClick={handleBackToHeihe}
+            >
               Back to Heihe
             </Button>
           </Stack>

@@ -35,8 +35,12 @@ export default function index() {
       <Box key={"project_" + index}>
         <Typography variant="h5" gutterBottom component="div">
           {index + 1}. {item.title}{" "}
+          <span className={styles.time}>
+            {item.time}
+          </span>
           {item.website ? (
             <span className={styles.website}>
+              &nbsp;•&nbsp;
               <a href={item.website} target="_blank" rel="noopener noreferrer">
                 <LanguageIcon fontSize="12" />
                 Website
@@ -45,9 +49,6 @@ export default function index() {
           ) : (
             ""
           )}
-        </Typography>
-        <Typography variant="body2" gutterBottom component="div">
-          {item.location} • {item.time}
         </Typography>
         <Typography variant="body2" gutterBottom component="div">
           <ul className={styles.outIndention}>
@@ -59,6 +60,7 @@ export default function index() {
         </Typography>
 
         {item.images && (
+          <React.Fragment>
           <ImageList
             sx={{ width: "100%", height: "auto" }}
             variant="quilted"
@@ -83,6 +85,8 @@ export default function index() {
               );
             })}
           </ImageList>
+          <div className={styles.imagesNotice}>* All images are granted to use, and have copyright. Pictures are taken by myself.</div>
+          </React.Fragment>
         )}
         {item.map && maps[item.map]}
         {item.other && (

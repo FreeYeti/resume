@@ -6,8 +6,9 @@ import styles from "../styles.less";
 const experiences = [
   {
     title: "Software Development Manager",
-    company: "Beautiful China Academy of Data Research Co.,Ltd. (Gansu Branch)",
+    company: "Beautiful China Academy of Data Research Co.,Ltd. (Gansu Branch) • 美丽华夏大数据研究院有限公司甘肃分公司",
     location: "Lanzhou, Gansu (China)",
+    website: "http://www.bcadr.cn/",
     from: "2021",
     to: "now",
     achievement: [
@@ -17,8 +18,9 @@ const experiences = [
   },
   {
     title: "Senior Director of Software Development",
-    company: "Lan Zhou Data Cloud, LLC.",
+    company: "Lan Zhou Data Cloud, LLC. • 兰州数云软件科技有限公司",
     location: "Lanzhou, Gansu (China)",
+    website: "https://westdc.cn/",
     from: "2019",
     to: "2021",
     achievement: [
@@ -29,8 +31,9 @@ const experiences = [
   },
   {
     title: "WebGIS Architect",
-    company: "Lan Zhou Data Cloud, LLC.",
+    company: "Lan Zhou Data Cloud, LLC. • 兰州数云软件科技有限公司",
     location: "Lanzhou, Gansu (China)",
+    website: "https://westdc.cn/",
     from: "2016",
     to: "2019",
     achievement: [
@@ -42,8 +45,9 @@ const experiences = [
   {
     title: "Senior Software Engineer",
     company:
-      "Cold and Arid Regions Environmental and Engineering Research Institute (CAREERI)",
+      "Cold and Arid Regions Environmental and Engineering Research Institute (CAREERI) • 中国科学院寒区旱区环境与工程研究所",
     location: "Lanzhou, Gansu (China)",
+    website: "http://www.nieer.cas.cn/",
     from: "2012",
     to: "2016",
     achievement: [
@@ -67,17 +71,17 @@ export default function Experiences() {
             {item.title}
           </Typography>
           <Typography variant="subtitle2" gutterBottom component="div">
-            {item.company}
+            <a href={item.website}>{item.company}</a>
             <br />
             {item.location} {item.from} - {item.to}
           </Typography>
-          <Typography variant="body1" gutterBottom component="div">
+          {/* <Typography variant="body1" gutterBottom component="div">
             <ul className={styles.unstyledList}>
               {item.achievement.map((content, index) => (
                 <li key={index}> - {content}</li>
               ))}
             </ul>
-          </Typography>
+          </Typography> */}
         </React.Fragment>
       ))}
     </React.Fragment>

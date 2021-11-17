@@ -11,8 +11,64 @@ import img_earthquake2 from "./images/earthquake_2.jpg";
 import img_g214_1 from "./images/g214_1.jpg";
 import img_g214_2 from "./images/g214_2.jpg";
 import img_g214_3 from "./images/g214_3.jpg";
+import img_g214_4 from "./images/g214_4.jpg";
+import img_g214_5 from "./images/g214_5.jpg";
+import img_g214_6 from "./images/g214_6.jpg";
+import img_lztdt_1 from "./images/lztdt_1.jpg";
+import img_lztdt_2 from "./images/lztdt_2.jpg";
+import img_tianjin_1 from "./images/tianjin_1.jpg";
+import img_tianjin_2 from "./images/tianjin_2.jpg";
+import img_tianjin_3 from "./images/tianjin_3.jpg";
 
 export const projects = [
+  {
+    title: "Tianjin emergent event prediction system",
+    time: "2021",
+    location: "Lanzhou (China)",
+    achievement: [
+      "Developed a program to process GPS tracks (five million points per day)",
+      "Implemented a tool to analyze dangerous facts, and marked the result on a map",
+      "Created a utility to play GPS tracks by ES6",
+      "Developed the pipeline of rasterizing for weather data",
+      "Built CI/CD pipelines to deploy the staging",
+    ],
+    images: [
+      {
+        src: img_tianjin_1,
+        title: "Navigation",
+      },
+      {
+        src: img_tianjin_2,
+        title: "Admin",
+      },
+      {
+        src: img_tianjin_3,
+        title: "Admin",
+      },
+    ],
+  }, // Tianjin
+  {
+    title: "Lanzhou Geospatial Services",
+    time: "2020",
+    location: "Lanzhou (China)",
+    website: "https://gansu.tianditu.gov.cn/lanzhou/",
+    achievement: [
+      "Implemented high availability Web Map Tile Services(WMTS) by Docker and Kubernetes",
+      "Designed and developed program to process spatial data by Python",
+      "Built CI/CD pipelines",
+      "Created fundamental for frontend by Webpack and React(with Redux)",
+    ],
+    images: [
+      {
+        src: img_lztdt_1,
+        title: "Navigation",
+      },
+      {
+        src: img_lztdt_2,
+        title: "Admin",
+      },
+    ],
+  }, // TianDiTu
   {
     title: "National Tibetan Plateau Data Center",
     time: "2019",
@@ -165,6 +221,18 @@ export const projects = [
       },
       {
         src: img_g214_3,
+        title: "The source of Yellow river.",
+      },
+      {
+        src: img_g214_4,
+        title: "The source of Yellow river.",
+      },
+      {
+        src: img_g214_5,
+        title: "The source of Yellow river.",
+      },
+      {
+        src: img_g214_6,
         title: "The source of Yellow river.",
       },
     ],
