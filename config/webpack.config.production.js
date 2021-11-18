@@ -1,7 +1,9 @@
 const path = require("path");
+const moment = require("moment");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const alias = require("./alias");
@@ -32,6 +34,20 @@ module.exports = {
         ...chunks,
       }, // cacheGroups
     }, // splitChunks
+    minimizer: [
+      new TerserPlugin({
+        extractComments: {
+          condition: /^\**!|@preserve|@license|@cc_on/i,
+          filename: (fileData) => {
+            return `${fileData.filename}.LICENSE.txt${fileData.query}`;
+          },
+          banner: (licenseFile) => {
+            return `${moment().format("YYYY-MM-DD HH:mm:ss")}. Copy right by JianXuan(Jack) Li. E-mail: liujin834@gmail.com
+License information can be found in ${licenseFile}`;
+          },
+        },
+      }),
+    ],
   }, //optimization
   module: {
     rules: [

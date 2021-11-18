@@ -27,7 +27,7 @@ import img_tianjin_6 from "./images/tianjin_6.gif";
 
 export const projects = [
   {
-    title: "Tianjin emergent event prediction system",
+    title: "Tianjin Emergent Events Early-warning System",
     time: "2021",
     location: "Lanzhou (China)",
     achievement: [

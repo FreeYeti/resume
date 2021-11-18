@@ -117,7 +117,6 @@ module.exports = {
       API_HOST: JSON.stringify(process.env.API_HOST),
       API_PREFIX: JSON.stringify(process.env.API_PREFIX),
     }), // Define plugin
-    // Copy Cesium Assets, Widgets, and Workers to a static directory
   ], //plugins
   devServer: {
     allowedHosts: "all",
