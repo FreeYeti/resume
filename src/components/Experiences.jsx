@@ -1,4 +1,5 @@
 import React from "react";
+import Divider from '@mui/material/Divider';
 import Typography from "@mui/material/Typography";
 
 import styles from "../styles.less";
@@ -65,6 +66,7 @@ export default function Experiences() {
       <Typography variant="h4" gutterBottom component="div">
         Experiences
       </Typography>
+      <Divider />
       {experiences.map((item, index) => (
         <React.Fragment key={"e_" + index}>
           <Typography variant="h5" gutterBottom component="div">

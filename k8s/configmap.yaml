@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: resume-env-config
+  namespace: default
+data:
+  VENV_IN_PROJECT: "0"
+  LC_ALL: "C.UTF-8"
+  LANG: "C.UTF-8"
+  LANGUAGE: "en_US:en"

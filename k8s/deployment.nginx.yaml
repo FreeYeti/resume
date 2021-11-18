@@ -1,0 +1,45 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: resume-nginx
+  labels:
+    run: resume-nginx
+spec:
+  selector:
+    app: resume-nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resume-nginx
+  labels:
+    app: resume-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resume-nginx
+  template:
+    metadata:
+      labels:
+        app: resume-nginx
+    spec:
+      imagePullSecrets:
+        - name: __PULL_SECRET__
+      containers:
+        - name: resume-nginx
+          image: __IMAGE_NAME_NGINX__:__IMAGE_TAG__
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 100Mi
+              cpu: "0.1"

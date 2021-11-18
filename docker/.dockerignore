@@ -1,0 +1,11 @@
+code-server
+docker
+k8s
+.venv
+assets
+.git
+README.md
+.editorconfig
+.github
+.gitattributes
+.gitignore

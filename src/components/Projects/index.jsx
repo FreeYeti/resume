@@ -5,6 +5,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import Divider from '@mui/material/Divider';
 
 import { projects } from "./projects";
 import Modal from "./modal";
@@ -85,7 +86,7 @@ export default function index() {
               );
             })}
           </ImageList>
-          <div className={styles.imagesNotice}>* All images are granted to use, and have copyright. Pictures are taken by myself.</div>
+          <div className={styles.imagesNotice}>* All images are granted to use, and have copyright. Photos were taken by myself.</div>
           </React.Fragment>
         )}
         {item.map && maps[item.map]}
@@ -104,6 +105,7 @@ export default function index() {
       <Typography variant="h4" gutterBottom component="div">
         Projects
       </Typography>
+      <Divider />
       {projects.map((d, i) => genItem(d, i))}
     </React.Fragment>
   );

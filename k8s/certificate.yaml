@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: resume-cert
+  namespace: default
+spec:
+  commonName: jianxuan.li
+  secretName: resume-issuer-key
+  dnsNames:
+    - jianxuan.li
+    - www.jianxuan.li
+  issuerRef:
+    name: resume-issuer
+    kind: ClusterIssuer

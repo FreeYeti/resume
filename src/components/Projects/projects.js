@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import img_tpdc1 from "./images/tpdc_poles_earth.jpg";
+import img_tpdc2 from "./images/tpdc_2.jpg";
 import img_flood1 from "./images/flash_floods_1.jpg";
 import img_flood2 from "./images/flash_floods_2.jpg";
 import img_citymap1 from "./images/city_map_1.jpg"
@@ -16,9 +17,13 @@ import img_g214_5 from "./images/g214_5.jpg";
 import img_g214_6 from "./images/g214_6.jpg";
 import img_lztdt_1 from "./images/lztdt_1.jpg";
 import img_lztdt_2 from "./images/lztdt_2.jpg";
+import img_lztdt_3 from "./images/lztdt_3.jpg";
 import img_tianjin_1 from "./images/tianjin_1.jpg";
 import img_tianjin_2 from "./images/tianjin_2.jpg";
 import img_tianjin_3 from "./images/tianjin_3.jpg";
+import img_tianjin_4 from "./images/tianjin_4.gif";
+import img_tianjin_5 from "./images/tianjin_5.gif";
+import img_tianjin_6 from "./images/tianjin_6.gif";
 
 export const projects = [
   {
@@ -45,6 +50,18 @@ export const projects = [
         src: img_tianjin_3,
         title: "Admin",
       },
+      {
+        src: img_tianjin_4,
+        title: "Track player",
+      },
+      {
+        src: img_tianjin_5,
+        title: "Heatmap"
+      },
+      {
+        src: img_tianjin_6,
+        title: "Analysis"
+      }
     ],
   }, // Tianjin
   {
@@ -59,6 +76,10 @@ export const projects = [
       "Created fundamental for frontend by Webpack and React(with Redux)",
     ],
     images: [
+      {
+        src: img_lztdt_3,
+        title: "Index",
+      },
       {
         src: img_lztdt_1,
         title: "Navigation",
@@ -90,6 +111,10 @@ export const projects = [
         title:
           "Demonstration of the data that I rendered as a map. In The National Science Library(BeiJing, China).",
       },
+      {
+        src: img_tpdc2,
+        title: "Statistics of TPDC website"
+      }
     ],
   }, //TPDC
   {

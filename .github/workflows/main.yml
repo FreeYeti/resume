@@ -1,0 +1,199 @@
+name: release
+
+on:
+  release:
+    types: [published]
+
+env:
+  # Define image names
+  IMAGE_NAME_NGINX: ghcr.io/FreeYeti/resume-nginx
+  DOCKER_CONFIG: /root/docker-accounts/ghcr
+  PULL_SECRET: ghcr
+
+jobs:
+  # Apply configmap to Kubernetes
+  config:
+    runs-on: [self-hosted]
+
+    steps:
+      # - name: Download artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: deployment
+
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+
+      - name: Reset owner
+        run: |
+          chown -R $USER:$USER $(pwd)
+
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.vars.outputs.tag }}
+
+      - name: Apply configmap
+        run: |
+          kubectl apply -f k8s/configmap.yaml
+        
+      - name: Check output
+        run: |
+          echo ${{ steps.vars.outputs.tag }}
+          echo ${{ steps.vars.outputs.tag }} > version.txt
+          
+      - name: Upload version file
+        uses: actions/upload-artifact@v2
+        with:
+          name: deployment
+          path: version.txt
+
+  # Build and push image to Docker registry.
+  build:
+    # Ensure config job passes before building image.
+    needs: config
+
+    runs-on: [self-hosted]
+
+    steps:
+      - name: Set image version
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+      
+      - name: Reset owner
+        run: |
+          sudo chown -R $USER:$USER $(pwd)
+
+      - name: Check image version
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $IMAGE_TAG
+
+      - name: Copy docker files
+        run: |
+          cp docker/* ./
+
+      - name: Build image
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          docker build -t $IMAGE_NAME_NGINX:$IMAGE_TAG .
+
+      - name: Push image
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          docker --config $DOCKER_CONFIG push $IMAGE_NAME_NGINX:$IMAGE_TAG
+          
+      - name: Prune image
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          docker image rm $IMAGE_NAME_NGINX:$IMAGE_TAG
+          docker image prune -f
+
+  # Generate deployment files.
+  generate-artifacts:
+    # Ensure django image is built before run testing.
+    needs: build
+
+    runs-on: [self-hosted]
+
+    steps:
+      - name: Set image version
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+      
+      - name: Reset owner
+        run: |
+          sudo chown -R $USER:$USER $(pwd)
+          
+      - name: Check image version
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $IMAGE_TAG
+
+      - name: Generate deployment files
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          sed -i "s@__PULL_SECRET__@$PULL_SECRET@g" k8s/test.nginx.yaml
+          sed -i "s@__IMAGE_NAME_NGINX__@$IMAGE_NAME_NGINX@g" k8s/test.nginx.yaml
+          sed -i "s@__IMAGE_TAG__@$IMAGE_TAG@g" k8s/test.nginx.yaml
+
+          sed -i "s@__PULL_SECRET__@$PULL_SECRET@g" k8s/deployment.nginx.yaml
+          sed -i "s@__IMAGE_TAG__@$IMAGE_TAG@g" k8s/deployment.nginx.yaml
+          sed -i "s@__IMAGE_NAME_NGINX__@$IMAGE_NAME_NGINX@g" k8s/deployment.nginx.yaml
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: deployment
+          path: |
+            k8s/test.nginx.yaml
+            k8s/deployment.nginx.yaml
+            k8s/certificate.yaml
+            k8s/clusterissuer.yaml
+            k8s/configmap.yaml
+            k8s/ingressroute.yaml
+
+  # Test Nginx configuration.
+  test-nginx:
+    needs: generate-artifacts
+
+    runs-on: [self-hosted]
+
+    steps:
+      - name: Set image version
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+
+      - name: Reset owner
+        run: |
+          sudo chown -R $USER:$USER $(pwd)
+          
+      - name: Check image version
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $IMAGE_TAG
+
+      - name: Run testing
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          kubectl delete -f k8s/test.nginx.yaml || echo "No jobs"
+          kubectl apply -f k8s/test.nginx.yaml
+          kubectl wait --timeout=300s --for=condition=complete jobs/resume-nginx-test
+          kubectl logs -f jobs/resume-nginx-test
+          kubectl delete -f k8s/test.nginx.yaml
+
+  # Deploy to k8s
+  deploy:
+    # Ensure database already migrated
+    needs: test-nginx
+
+    runs-on: [self-hosted]
+
+    steps:
+      - name: Set image version
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+
+      - name: Reset owner
+        run: |
+          sudo chown -R $USER:$USER $(pwd)
+
+      - name: Check image version
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $IMAGE_TAG
+
+      - name: Apply k8s YAML files
+        env:
+          IMAGE_TAG: ${{ steps.vars.outputs.tag }}
+        run: |
+          kubectl apply -f k8s/deployment.nginx.yaml

@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: resume-nginx-test
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 600
+  template:
+    spec:
+      imagePullSecrets:
+        - name: __PULL_SECRET__
+      restartPolicy: Never
+      containers:
+        - name: resume-nginx-test
+          image: __IMAGE_NAME_NGINX__:__IMAGE_TAG__
+          imagePullPolicy: Always
+          command: ["nginx", "-t"]

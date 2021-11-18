@@ -7,6 +7,8 @@ import Container from "@mui/material/Container";
 import Summary from "./components/Summary";
 import Experiences from "./components/Experiences";
 import Projects from "./components/Projects";
+import Others from "./components/Others";
+import Education from "./components/Education";
 
 export default function app() {
   return (
@@ -24,6 +26,8 @@ export default function app() {
           <Summary />
           <Projects />
           <Experiences />
+          <Education />
+          <Others />
         </Container>
       </Box>
     </main>

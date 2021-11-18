@@ -1,0 +1,40 @@
+# initialization:
+#
+#  kubectl apply -f clusterissuer.yaml
+#  kubectl apply -f certificate.yaml
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: resume-tls
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: (Host(`jianxuan.li`) || Host(`www.jianxuan.li`))
+      priority: 9
+      services:
+        - name: resume-nginx
+          port: 80
+  tls:
+    secretName: resume-issuer-key
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: resume-http
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: (Host(`jianxuan.li`) || Host(`www.jianxuan.li`))
+      priority: 8
+      services:
+        - name: resume-nginx
+          port: 80
+      middlewares:
+        - name: redirectscheme
