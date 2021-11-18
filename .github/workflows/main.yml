@@ -6,7 +6,7 @@ on:
 
 env:
   # Define image names
-  IMAGE_NAME_NGINX: ghcr.io/FreeYeti/resume-nginx
+  IMAGE_NAME_NGINX: ghcr.io/freeyeti/resume-nginx
   DOCKER_CONFIG: /root/docker-accounts/ghcr
   PULL_SECRET: ghcr
 
