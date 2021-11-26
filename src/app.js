@@ -5,10 +5,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 
 import Summary from "./components/Summary";
-import Experiences from "./components/Experiences";
-import Projects from "./components/Projects";
-import Others from "./components/Others";
-import Education from "./components/Education";
+// import Experiences from "./components/Experiences";
+// import Projects from "./components/Projects";
+// import Others from "./components/Others";
+// import Education from "./components/Education";
 
 export default function app() {
   return (
@@ -24,10 +24,10 @@ export default function app() {
       >
         <Container maxWidth="md">
           <Summary />
-          <Projects />
+          {/* <Projects />
           <Experiences />
           <Education />
-          <Others />
+          <Others /> */}
         </Container>
       </Box>
     </main>

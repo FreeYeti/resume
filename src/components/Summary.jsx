@@ -12,11 +12,15 @@ export default function Summary() {
         color="text.primary"
         gutterBottom
       >
-        Jian Xuan Li (Jack)
+        Jianxuan(Jack) Li
       </Typography>
-      <Typography align="left" color="text.secondary" paragraph>
+      {/* <Typography align="left" color="text.secondary" paragraph>
         Eight years of experience in software development • WebGIS • Python •
         Postgresql • NodeJS • Docker • Kubernetes • SDLC • Agile methodologies
+      </Typography> */}
+      <Typography align="left" color="text.secondary" paragraph>
+        Thank you for visit, my resume is not available at this time.<br />
+        liujin834#gmail
       </Typography>
     </React.Fragment>
   );
