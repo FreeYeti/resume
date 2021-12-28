@@ -24,10 +24,10 @@ export default function app() {
       >
         <Container maxWidth="md">
           <Summary />
-          {/* <Projects />
+          <Projects />
           <Experiences />
           <Education />
-          <Others /> */}
+          <Others />
         </Container>
       </Box>
     </main>
