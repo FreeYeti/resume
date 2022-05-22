@@ -27,6 +27,16 @@ import img_tianjin_6 from "./images/tianjin_6.gif";
 
 export const projects = [
   {
+    title: "Rush to buy backend of Omni-hype",
+    time: "2022",
+    location: "Shanghai (China)",
+    website: "https://wiredcraft.com/blog/tapping-into-chinese-millennial-market-with-goat-s-mini-program/",
+    achievement: [
+      "Designed and developed features of RUSH TO BUY in Omni-hype (a product of WiredCraft)",
+      "Use in a WeChat mini-program for GOAT China",
+    ],
+  },
+  {
     title: "Tianjin Emergent Events Early-warning System",
     time: "2021",
     location: "Lanzhou (China)",
@@ -132,7 +142,7 @@ export const projects = [
       "Published map layers by Geoserver and used by Three-River-Source National Park",
       `Deployed the application and Spark cluster by Docker and Docker-compose, all deployment under CI/CD`,
     ],
-    map: "Sjy",
+    // map: "Sjy",
   }, // SJY
   {
     title: "Heihe Data Center",

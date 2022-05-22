@@ -6,9 +6,23 @@ import styles from "../styles.less";
 
 const experiences = [
   {
+    title: "Senior Backend Developer ",
+    company: "Wiredcraft Co. Ltd.",
+    location: "Shanghai, China",
+    website: "https://wiredcraft.com/",
+    from: "2021",
+    to: "2022",
+    achievement: [
+      "Design and develop micro-services and APIs",
+      "Work with team members",
+      "Create documents for developers and other teams",
+      "Troubleshoot issues, support DevOps team in scalability and performance efforts",
+    ],
+  },
+  {
     title: "Software Development Manager",
     company: "Beautiful China Academy of Data Research Co.,Ltd. (Gansu Branch) • 美丽华夏大数据研究院有限公司甘肃分公司",
-    location: "Lanzhou, Gansu (China)",
+    location: "Lanzhou, Gansu, China",
     website: "http://www.bcadr.cn/",
     from: "2021",
     to: "now",
@@ -20,7 +34,7 @@ const experiences = [
   {
     title: "Senior Director of Software Development",
     company: "Lan Zhou Data Cloud, LLC. • 兰州数云软件科技有限公司",
-    location: "Lanzhou, Gansu (China)",
+    location: "Lanzhou, Gansu, China",
     website: "https://westdc.cn/",
     from: "2019",
     to: "2021",
