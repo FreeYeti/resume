@@ -10,7 +10,10 @@ export default function Education() {
       </Typography>
       <Divider />
       <Typography align="left" color="text.secondary" paragraph>
-        Lanzhou University • Computer Science • 2008 – 2012
+        Conestoga college (Waterloo campus) • Mobile solution development • 2022 - 2023
+      </Typography>
+      <Typography align="left" color="text.secondary" paragraph>
+        Lanzhou University • Computer Science • 2008 – 2013
       </Typography>
     </React.Fragment>
   );
