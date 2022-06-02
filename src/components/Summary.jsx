@@ -15,7 +15,7 @@ export default function Summary() {
         Jianxuan(Jack) Li
       </Typography>
       <Typography align="left" color="text.secondary" paragraph>
-        Nine years of experience in software development • WebGIS • Python •
+        Ten years of experience in software development • WebGIS • Python •
         Postgresql • NodeJS • Docker • Kubernetes • SDLC • Agile methodologies
       </Typography>
       {/* <Typography align="left" color="text.secondary" paragraph>

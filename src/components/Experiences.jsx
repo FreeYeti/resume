@@ -10,8 +10,8 @@ const experiences = [
     company: "Wiredcraft Co. Ltd.",
     location: "Shanghai, China",
     website: "https://wiredcraft.com/",
-    from: "2021",
-    to: "2022",
+    from: "December, 2021",
+    to: "May, 2022",
     achievement: [
       "Design and develop micro-services and APIs",
       "Work with team members",
@@ -24,8 +24,8 @@ const experiences = [
     company: "Beautiful China Academy of Data Research Co.,Ltd. (Gansu Branch) • 美丽华夏大数据研究院有限公司甘肃分公司",
     location: "Lanzhou, Gansu, China",
     website: "http://www.bcadr.cn/",
-    from: "2021",
-    to: "now",
+    from: "April, 2021",
+    to: "December, 2021",
     achievement: [
       "To manage the department of GIS-development",
       "To design and develop softwares which are needed",
